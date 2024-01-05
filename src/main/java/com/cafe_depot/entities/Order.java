@@ -5,8 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Order {
@@ -20,4 +22,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id") // Defines name of the foreign key column
     private User user;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 }
