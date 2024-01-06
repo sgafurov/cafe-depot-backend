@@ -19,26 +19,41 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> getUserById(Long userId) {
-        return userRepository.findById(userId);
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
-    public User createUser(User newUser) {
-        newUser.setPassword(hashPassword(newUser.getPassword()));
-        return userRepository.save(newUser);
+    public List<User> getUsersByAddress(String address) {
+        return userRepository.findByAddress(address);
     }
 
-    public User updateUser(Long userId, User updatedUser) {
-        return userRepository.findById(userId)
-                .map(user -> {
-                    user.setUsername(updatedUser.getUsername());
-                    user.setPassword(hashPassword(updatedUser.getPassword()));
-                    user.setEmail(updatedUser.getEmail());
-                    user.setAddress(updatedUser.getAddress());
-                    return userRepository.save(user);
-                })
-                .orElse(null);
+    public User createUser(String username, String password, String email, String address) {
+        // Check if the username is already taken
+        if (userRepository.findByUsername(username).isPresent()) {
+            throw new IllegalArgumentException("Username already exists");
+        }
+
+        User newUser = new User(username, password, email, address);
+
+        // Hash the password before saving
+        newUser.setPassword(hashPassword(password));
+
+        userRepository.save(newUser);
+
+        return newUser;
     }
+
+    // public User updateUser(String username, User updatedUser) {
+    //     return userRepository.findByUsername(username)
+    //             .map(user -> {
+    //                 user.setUsername(updatedUser.getUsername());
+    //                 user.setPassword(hashPassword(updatedUser.getPassword()));
+    //                 user.setEmail(updatedUser.getEmail());
+    //                 user.setAddress(updatedUser.getAddress());
+    //                 return userRepository.save(user);
+    //             })
+    //             .orElse(null);
+    // }
 
     public void deleteByUsername(String username) {
         userRepository.deleteByUsername(username);
