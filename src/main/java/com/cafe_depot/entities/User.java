@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,7 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long id;
 
     @NotBlank
     private String username;
@@ -30,7 +32,8 @@ public class User {
     protected User() {
     }
 
-    public User(String username, String password, String email, String address) {
+    public User(@NotBlank String username, @NotBlank String password, @NotBlank @Email String email,
+            @NotBlank String address) {
         this.username = username;
         this.password = hashPassword(password);
         this.email = email;
@@ -41,10 +44,42 @@ public class User {
         return new BCryptPasswordEncoder().encode(password);
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "user_id=" + user_id +
+                "user_id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
