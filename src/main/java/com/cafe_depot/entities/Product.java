@@ -22,10 +22,10 @@ public class Product {
     private String description;
 
     @NotNull
-    private double price;
+    private Double price;
 
     @NotNull
-    private int stock;
+    private Integer stock;
 
     public Long getId() {
         return id;

@@ -24,7 +24,7 @@ public class Order {
     private Date orderDate;
 
     @NotNull
-    private double total;
+    private Double total;
 
      // FK user_id
     @ManyToOne // Many orders can belong to one user

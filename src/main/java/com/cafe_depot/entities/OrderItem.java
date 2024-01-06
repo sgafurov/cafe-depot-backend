@@ -6,10 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.persistence.JoinColumn;
 
 @Entity
+@Table(name = "order_item")
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +19,10 @@ public class OrderItem {
     private Long id;
 
     @NotNull
-    private double subtotal;
+    private Double subtotal;
 
     @NotNull
-    private int quantity;
+    private Integer quantity;
 
     // FK order_id
     // specifies the foreign key column in the OrderItem table that corresponds to
