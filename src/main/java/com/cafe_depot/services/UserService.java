@@ -23,9 +23,9 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> getUsersByAddress(String address) {
-        return userRepository.findByAddress(address);
-    }
+    // public List<User> getUsersByAddress(String address) {
+    //     return userRepository.findByAddress(address);
+    // }
 
     public User createUser(String username, String password, String email, String address) {
         // Check if the username is already taken
@@ -36,7 +36,7 @@ public class UserService {
         User newUser = new User(username, password, email, address);
 
         // Hash the password before saving
-        newUser.setPassword(hashPassword(password));
+        newUser.setPassword(password);
 
         userRepository.save(newUser);
 
@@ -59,7 +59,7 @@ public class UserService {
         userRepository.deleteByUsername(username);
     }
 
-    private String hashPassword(String password) {
-        return new BCryptPasswordEncoder().encode(password);
-    }
+    // private String hashPassword(String password) {
+    //     return new BCryptPasswordEncoder().encode(password);
+    // }
 }
