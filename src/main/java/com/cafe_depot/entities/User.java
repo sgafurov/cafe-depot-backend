@@ -93,4 +93,8 @@ public class User {
                 ", address='" + address + '\'' +
                 '}';
     }
+
+    public User orElseThrow(Object object) {
+        return null;
+    }
 }
