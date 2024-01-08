@@ -16,9 +16,13 @@ import com.cafe_depot.cafe_depot.command.CreateUser;
 import com.cafe_depot.cafe_depot.entities.User;
 import com.cafe_depot.cafe_depot.models.UserModel;
 import com.cafe_depot.cafe_depot.services.UserService;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:10533", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+        RequestMethod.DELETE })
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
