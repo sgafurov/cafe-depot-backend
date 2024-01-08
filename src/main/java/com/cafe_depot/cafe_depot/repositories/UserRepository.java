@@ -1,9 +1,9 @@
-package com.cafe_depot.repositories;
+package com.cafe_depot.cafe_depot.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cafe_depot.entities.User;
+import com.cafe_depot.cafe_depot.entities.User;
 
 import java.util.List;
 import java.util.Optional;

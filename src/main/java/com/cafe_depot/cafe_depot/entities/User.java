@@ -1,41 +1,44 @@
-package com.cafe_depot.entities;
+package com.cafe_depot.cafe_depot.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import jakarta.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+// import javax.persistence.Entity;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.GenerationType;
+// import javax.persistence.Id;
+// import javax.persistence.Column;
+// import javax.validation.constraints.Email;
+// import javax.validation.constraints.NotBlank;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
+@Table(name = "cafe_depot_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Long id;
 
-    @NotBlank
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @NotBlank
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @NotBlank
-    @Email
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @NotBlank
+    @Column(name = "address", nullable = false)
     private String address;
 
-    protected User() {
+    public User() {
     }
 
-    public User(@NotBlank String username, @NotBlank String password, @NotBlank @Email String email,
-            @NotBlank String address) {
+    public User(String username, String password, String email, String address) {
         this.username = username;
         this.password = hashPassword(password);
+        // this.password = password;
         this.email = email;
         this.address = address;
     }
@@ -67,6 +70,10 @@ public class User {
     public void setPassword(String password) {
         this.password = hashPassword(password);
     }
+
+    // public void setPassword(String password) {
+    // this.password = (password);
+    // }
 
     public String getEmail() {
         return email;

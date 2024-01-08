@@ -1,11 +1,10 @@
-package com.cafe_depot.entities;
+package com.cafe_depot.cafe_depot.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -15,17 +14,27 @@ public class Product {
     @Column(name = "product_id")
     private Long id;
 
-    @NotBlank
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @NotBlank
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @NotNull
+    @Column(name = "price", nullable = false)
     private Double price;
 
     @NotNull
     private Integer stock;
+
+    public Product() {
+    }
+
+    public Product(String name, String description, double price, int stock) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+    }
 
     public Long getId() {
         return id;
@@ -67,14 +76,11 @@ public class Product {
         this.stock = stock;
     }
 
-    protected Product() {
+    @Override
+    public String toString() {
+        return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", stock="
+                + stock + "]";
     }
 
-    public Product(@NotBlank String name, @NotBlank String description, @NotNull double price,
-            @NotNull int stock) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.stock = stock;
-    }
+    
 }

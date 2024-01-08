@@ -1,4 +1,4 @@
-package com.cafe_depot.entities;
+package com.cafe_depot.cafe_depot.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -15,13 +14,13 @@ import javax.persistence.JoinColumn;
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_item_id")
+    @Column(name = "order_item_id", nullable = false)
     private Long id;
 
-    @NotNull
+    @Column(name = "subtotal", nullable = false)
     private Double subtotal;
 
-    @NotNull
+    @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
     // FK order_id
@@ -35,6 +34,16 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "product_id") // Defines name of the foreign key column
     private Product product;
+
+    public OrderItem() {
+    }
+
+    public OrderItem(Order order, Product product, int quantity, double subtotal) {
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+    }
 
     public Long getId() {
         return id;
@@ -60,13 +69,11 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    protected OrderItem() {
+    @Override
+    public String toString() {
+        return "OrderItem [id=" + id + ", subtotal=" + subtotal + ", quantity=" + quantity + ", order=" + order
+                + ", product=" + product + "]";
     }
 
-    public OrderItem(Order order, Product product, @NotNull int quantity, @NotNull double subtotal) {
-        this.order = order;
-        this.product = product;
-        this.quantity = quantity;
-        this.subtotal = subtotal;
-    }
+    
 }

@@ -1,4 +1,4 @@
-package com.cafe_depot.entities;
+package com.cafe_depot.cafe_depot.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 import javax.persistence.JoinColumn;
 import java.util.Date;
 import java.util.List;
@@ -16,14 +15,13 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
+    @Column(name = "order_id", nullable = false)
     private Long id;
 
-    @NotNull
-    @Column(name = "order_date")
+    @Column(name = "order_date", nullable = false)
     private Date orderDate;
 
-    @NotNull
+    @Column(name = "total", nullable = false)
     private Double total;
 
      // FK user_id
@@ -34,6 +32,16 @@ public class Order {
     // an Order entity can have multiple OrderItem entities associated with it
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
+
+    public Order() {
+    }
+
+    public Order(User user, List<OrderItem> orderItems, Date orderDate, double total) {
+        this.user = user;
+        this.orderItems = orderItems;
+        this.orderDate = orderDate;
+        this.total = total;
+    }
 
     public Long getId() {
         return id;
@@ -59,13 +67,11 @@ public class Order {
         this.total = total;
     }
 
-    protected Order() {
+    @Override
+    public String toString() {
+        return "Order [id=" + id + ", orderDate=" + orderDate + ", total=" + total + ", user=" + user + ", orderItems="
+                + orderItems + "]";
     }
 
-    public Order(User user, List<OrderItem> orderItems, @NotNull Date orderDate, @NotNull double total) {
-        this.user = user;
-        this.orderItems = orderItems;
-        this.orderDate = orderDate;
-        this.total = total;
-    }
+    
 }
