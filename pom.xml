@@ -81,7 +81,7 @@
 				<!-- Use a version that supports release -->
 				<!-- <version>3.8.8</version>  -->
 				<configuration>
-					<release>8</release> <!-- Set the Java release version -->
+					<release>11</release> <!-- Set the Java release version -->
 				</configuration>
 			</plugin>
 
