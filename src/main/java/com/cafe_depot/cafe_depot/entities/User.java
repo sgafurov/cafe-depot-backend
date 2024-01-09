@@ -1,6 +1,5 @@
 package com.cafe_depot.cafe_depot.entities;
 
-import jakarta.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 // import javax.persistence.Entity;
