@@ -9,15 +9,22 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.cafe_depot.cafe_depot.command.CreateUser;
-import com.cafe_depot.cafe_depot.entities.User;
+import com.cafe_depot.cafe_depot.command.LogInUser;
+import com.cafe_depot.cafe_depot.entities.UserEntity;
 import com.cafe_depot.cafe_depot.models.UserModel;
 import com.cafe_depot.cafe_depot.services.UserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RestController
 @RequestMapping("/api/users")
@@ -29,6 +36,9 @@ public class UserController {
 
     private final UserService userService;
 
+    // @Autowired
+    // private AuthenticationManager authenticationManager;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
@@ -39,6 +49,13 @@ public class UserController {
         logger.info("createUser request recieved with username: " + userCommand);
         UserModel userModel = userService.createUser(userCommand); // use Service to implement business logic
         logger.info("successfully created new user with id: " + userModel.getId());
+        return new ResponseEntity<>(userModel, HttpStatus.OK);
+    }
+
+    @PostMapping("/log-in")
+    public ResponseEntity<UserModel> logInUser(@RequestBody LogInUser userCommand) {
+        logger.info("logInUser request recieved with username: " + userCommand);
+        UserModel userModel = userService.logInUser(userCommand); // use service to validate
         return new ResponseEntity<>(userModel, HttpStatus.OK);
     }
 

@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Order {
+public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
@@ -27,16 +27,16 @@ public class Order {
      // FK user_id
     @ManyToOne // Many orders can belong to one user
     @JoinColumn(name = "user_id") // Defines name of the foreign key column
-    private User user;
+    private UserEntity user;
 
     // an Order entity can have multiple OrderItem entities associated with it
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
+    private List<OrderItemEntity> orderItems;
 
-    public Order() {
+    public OrderEntity() {
     }
 
-    public Order(User user, List<OrderItem> orderItems, Date orderDate, double total) {
+    public OrderEntity(UserEntity user, List<OrderItemEntity> orderItems, Date orderDate, double total) {
         this.user = user;
         this.orderItems = orderItems;
         this.orderDate = orderDate;

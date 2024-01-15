@@ -9,13 +9,15 @@ public class UserModel {
     private String username;
     private String email;
     private String address;
+    private String sessionId;
 
     public UserModel(Long id, String username, String email,
-            String address) {
+            String address, String sessionId) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.address = address;
+        this.sessionId = sessionId;
     }
 
     public Long getId() {

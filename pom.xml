@@ -15,8 +15,8 @@
 	<name>cafe_depot</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<!-- <java.version>17</java.version> -->
-		<java.version>8</java.version>
+		<java.version>17</java.version>
+		<!-- <java.version>8</java.version> -->
 		<!-- NEW -->
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>

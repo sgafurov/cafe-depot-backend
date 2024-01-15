@@ -1,19 +1,45 @@
 package com.cafe_depot.cafe_depot.mapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.cafe_depot.cafe_depot.command.CreateUser;
-import com.cafe_depot.cafe_depot.entities.User;
+import com.cafe_depot.cafe_depot.command.LogInUser;
+import com.cafe_depot.cafe_depot.entities.UserEntity;
+import com.cafe_depot.cafe_depot.entities.UserSessionEntity;
 import com.cafe_depot.cafe_depot.models.UserModel;
 
 @Component
 public class UserMapper {
-    public UserModel toModel(User user) {
-        return new UserModel(user.getId(), user.getUsername(), user.getEmail(), user.getAddress());
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserMapper() {
+        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
-    public User toEntity(CreateUser userCommand) {
-        return new User(userCommand.getUsername(), userCommand.getPassword(), userCommand.getEmail(),
+    public String hashPassword(String password) {
+        return bCryptPasswordEncoder.encode(password);
+    }
+
+    public Boolean verifyPassword(String rawPassword, String hashedPassword) {
+        return bCryptPasswordEncoder.matches(rawPassword, hashedPassword);
+    }
+
+    public UserModel toModel(UserEntity user) {
+        return new UserModel(user.getId(), user.getUsername(), user.getEmail(), user.getAddress(), null);
+    }
+
+    public UserModel toModel(UserEntity user, UserSessionEntity userSessionEntity) {
+        return new UserModel(user.getId(), user.getUsername(), user.getEmail(), user.getAddress(), userSessionEntity.getSessionId());
+    }
+
+    public UserEntity toEntity(CreateUser userCommand) {
+        return new UserEntity(userCommand.getUsername(), hashPassword(userCommand.getPassword()), userCommand.getEmail(),
                 userCommand.getAddress());
+    }
+
+    public UserEntity toEntity(LogInUser userCommand) {
+        return new UserEntity(userCommand.getUsername(), userCommand.getPassword(), null, null);
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table(name = "cafe_depot_user")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
@@ -31,20 +31,20 @@ public class User {
     @Column(name = "address", nullable = false)
     private String address;
 
-    public User() {
+    public UserEntity() {
     }
 
-    public User(String username, String password, String email, String address) {
+    public UserEntity(String username, String password, String email, String address) {
         this.username = username;
-        this.password = hashPassword(password);
-        // this.password = password;
+        // this.password = hashPassword(password);
+        this.password = password;
         this.email = email;
         this.address = address;
     }
 
-    private String hashPassword(String password) {
-        return new BCryptPasswordEncoder().encode(password);
-    }
+    // private String hashPassword(String password) {
+    //     return new BCryptPasswordEncoder().encode(password);
+    // }
 
     public Long getId() {
         return id;
@@ -66,13 +66,13 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = hashPassword(password);
-    }
-
     // public void setPassword(String password) {
-    // this.password = (password);
+    //     this.password = hashPassword(password);
     // }
+
+    public void setPassword(String password) {
+    this.password = (password);
+    }
 
     public String getEmail() {
         return email;
@@ -100,7 +100,7 @@ public class User {
                 '}';
     }
 
-    public User orElseThrow(Object object) {
+    public UserEntity orElseThrow(Object object) {
         return null;
     }
 }

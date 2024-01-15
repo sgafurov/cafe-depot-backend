@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "order_item")
-public class OrderItem {
+public class OrderItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_item_id", nullable = false)
@@ -28,17 +28,17 @@ public class OrderItem {
     // the primary key (order_id) of the Order table.
     @ManyToOne
     @JoinColumn(name = "order_id") // Defines name of the foreign key column
-    private Order order;
+    private OrderEntity order;
 
     // FK product_id
     @ManyToOne
     @JoinColumn(name = "product_id") // Defines name of the foreign key column
-    private Product product;
+    private ProductEntity product;
 
-    public OrderItem() {
+    public OrderItemEntity() {
     }
 
-    public OrderItem(Order order, Product product, int quantity, double subtotal) {
+    public OrderItemEntity(OrderEntity order, ProductEntity product, int quantity, double subtotal) {
         this.order = order;
         this.product = product;
         this.quantity = quantity;

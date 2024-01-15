@@ -7,8 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import jakarta.persistence.Table;
+
 @Entity
-public class Product {
+@Table(name = "cafe_depot_product")
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
@@ -23,13 +26,13 @@ public class Product {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @NotNull
+    @Column(name = "stock", nullable = false)
     private Integer stock;
 
-    public Product() {
+    public ProductEntity() {
     }
 
-    public Product(String name, String description, double price, int stock) {
+    public ProductEntity(String name, String description, double price, int stock) {
         this.name = name;
         this.description = description;
         this.price = price;

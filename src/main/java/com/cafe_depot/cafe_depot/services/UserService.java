@@ -1,28 +1,43 @@
 package com.cafe_depot.cafe_depot.services;
 
 import com.cafe_depot.cafe_depot.command.CreateUser;
-import com.cafe_depot.cafe_depot.entities.User;
+import com.cafe_depot.cafe_depot.command.LogInUser;
+import com.cafe_depot.cafe_depot.controllers.UserController;
+import com.cafe_depot.cafe_depot.entities.UserEntity;
+import com.cafe_depot.cafe_depot.entities.UserSessionEntity;
 import com.cafe_depot.cafe_depot.mapper.UserMapper;
 import com.cafe_depot.cafe_depot.models.UserModel;
 import com.cafe_depot.cafe_depot.repositories.UserRepository;
+import com.cafe_depot.cafe_depot.repositories.UserSessionRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
+    private final UserSessionRepository userSessionRepository;
     private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, UserMapper userMapper,
+            UserSessionRepository userSessionRepository) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.userSessionRepository = userSessionRepository;
     }
 
     public UserModel createUser(CreateUser userCommand) {
@@ -30,17 +45,40 @@ public class UserService {
         if (userRepository.findByUsername(userCommand.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Username already exists. Choose another username.");
         }
-        User userEntity = userMapper.toEntity(userCommand);
-        User newUser = userRepository.save(userEntity); // saves to the db
+        UserEntity userEntity = userMapper.toEntity(userCommand);
+        UserEntity newUser = userRepository.save(userEntity); // saves to the db
         UserModel userModel = userMapper.toModel(newUser); // creates a new model to return to client
         return userModel;
     }
 
+    public UserModel logInUser(LogInUser userCommand) {
+        logger.info("logInUser service called");
+        // Optional<User> userOption =
+        // userRepository.findByUsernameAndPassword(userCommand.getUsername(),
+        // hashedPassword);
+        Optional<UserEntity> userOption = userRepository.findByUsername(userCommand.getUsername());
+
+        if (userOption.isPresent()) {
+            UserEntity userEntity = userOption.get();
+            if (userMapper.verifyPassword(userCommand.getPassword(), userEntity.getPassword())) {
+                // creating token after veryifing password
+                UserSessionEntity userSessionEntity = new UserSessionEntity(UUID.randomUUID().toString(), userEntity);
+                // save token to its session db
+                userSessionEntity = userSessionRepository.save(userSessionEntity);
+                // make a user model dto with its session id
+                UserModel userModel = userMapper.toModel(userEntity, userSessionEntity); // creates a new model to return to client
+                return userModel;
+            }
+            // TODO update DB with login attempts
+        }
+        throw new IllegalArgumentException("Invalid login.");
+    }
+
     public UserModel getUserByUsername(String username) {
-        Optional<User> userEntityOptional = userRepository.findByUsername(username);
+        Optional<UserEntity> userEntityOptional = userRepository.findByUsername(username);
 
         if (userEntityOptional.isPresent()) {
-            User userEntity = userEntityOptional.get();
+            UserEntity userEntity = userEntityOptional.get();
             return userMapper.toModel(userEntity);
         } else {
             throw new IllegalArgumentException("User not found");
