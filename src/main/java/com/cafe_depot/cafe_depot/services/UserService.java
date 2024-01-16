@@ -2,7 +2,6 @@ package com.cafe_depot.cafe_depot.services;
 
 import com.cafe_depot.cafe_depot.command.CreateUser;
 import com.cafe_depot.cafe_depot.command.LogInUser;
-import com.cafe_depot.cafe_depot.controllers.UserController;
 import com.cafe_depot.cafe_depot.entities.UserEntity;
 import com.cafe_depot.cafe_depot.entities.UserSessionEntity;
 import com.cafe_depot.cafe_depot.mapper.UserMapper;
@@ -13,14 +12,8 @@ import com.cafe_depot.cafe_depot.repositories.UserSessionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 

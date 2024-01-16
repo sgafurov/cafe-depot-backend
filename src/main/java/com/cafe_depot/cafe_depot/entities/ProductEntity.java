@@ -1,20 +1,14 @@
 package com.cafe_depot.cafe_depot.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-
-import jakarta.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cafe_depot_product")
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -85,5 +79,4 @@ public class ProductEntity {
                 + stock + "]";
     }
 
-    
 }

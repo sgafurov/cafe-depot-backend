@@ -2,14 +2,6 @@ package com.cafe_depot.cafe_depot.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
-// import javax.persistence.Entity;
-// import javax.persistence.GeneratedValue;
-// import javax.persistence.GenerationType;
-// import javax.persistence.Id;
-// import javax.persistence.Column;
-// import javax.validation.constraints.Email;
-// import javax.validation.constraints.NotBlank;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table(name = "cafe_depot_user")

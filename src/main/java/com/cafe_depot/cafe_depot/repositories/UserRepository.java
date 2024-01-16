@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.cafe_depot.cafe_depot.entities.UserEntity;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
