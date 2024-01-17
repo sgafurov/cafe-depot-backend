@@ -11,16 +11,19 @@ public class CreateProduct {
     private Double price;
     @NotBlank
     private Integer stock;
+    @NotBlank
+    private String category;
 
     public CreateProduct() {
     }
 
     public CreateProduct(@NotBlank String name, @NotBlank String description, @NotBlank Double price,
-            @NotBlank Integer stock) {
+            @NotBlank Integer stock, @NotBlank String category) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
+        this.category = category;
     }
 
     public String getName() {
@@ -55,10 +58,18 @@ public class CreateProduct {
         this.stock = stock;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "CreateProduct [name=" + name + ", description=" + description + ", price=" + price + ", stock=" + stock
-                + "]";
+                + ", category=" + category + "]";
     }
 
     @Override
@@ -69,6 +80,7 @@ public class CreateProduct {
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((price == null) ? 0 : price.hashCode());
         result = prime * result + ((stock == null) ? 0 : stock.hashCode());
+        result = prime * result + ((category == null) ? 0 : category.hashCode());
         return result;
     }
 
@@ -100,6 +112,11 @@ public class CreateProduct {
             if (other.stock != null)
                 return false;
         } else if (!stock.equals(other.stock))
+            return false;
+        if (category == null) {
+            if (other.category != null)
+                return false;
+        } else if (!category.equals(other.category))
             return false;
         return true;
     }

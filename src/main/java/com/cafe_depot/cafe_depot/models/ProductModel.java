@@ -6,13 +6,15 @@ public class ProductModel {
     private String description;
     private Double price;
     private Integer stock;
+    private String category;
 
-    public ProductModel(Long id, String productName, String description, Double price, Integer stock) {
+    public ProductModel(Long id, String productName, String description, Double price, Integer stock, String category) {
         this.id = id;
         this.productName = productName;
         this.description = description;
         this.price = price;
         this.stock = stock;
+        this.category = category;
     }
 
     public Long getId() {
@@ -35,10 +37,14 @@ public class ProductModel {
         return stock;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     @Override
     public String toString() {
-        return "ProductModel [id=" + id + ", productName=" + productName + ", description=" + description + ", price=" + price
-                + ", stock=" + stock + "]";
+        return "ProductModel [id=" + id + ", productName=" + productName + ", description=" + description + ", price="
+                + price + ", stock=" + stock + ", category=" + category + "]";
     }
 
     @Override
@@ -50,6 +56,7 @@ public class ProductModel {
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((price == null) ? 0 : price.hashCode());
         result = prime * result + ((stock == null) ? 0 : stock.hashCode());
+        result = prime * result + ((category == null) ? 0 : category.hashCode());
         return result;
     }
 
@@ -86,6 +93,11 @@ public class ProductModel {
             if (other.stock != null)
                 return false;
         } else if (!stock.equals(other.stock))
+            return false;
+        if (category == null) {
+            if (other.category != null)
+                return false;
+        } else if (!category.equals(other.category))
             return false;
         return true;
     }

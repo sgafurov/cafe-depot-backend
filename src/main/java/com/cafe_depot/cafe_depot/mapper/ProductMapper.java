@@ -10,11 +10,11 @@ import com.cafe_depot.cafe_depot.models.ProductModel;
 public class ProductMapper {
     public ProductModel toModel(ProductEntity productEntity) {
         return new ProductModel(productEntity.getId(), productEntity.getName(), productEntity.getDescription(),
-                productEntity.getPrice(), productEntity.getstock());
+                productEntity.getPrice(), productEntity.getStock(), productEntity.getCategory());
     }
 
     public ProductEntity toEntity(CreateProduct productCommand) {
         return new ProductEntity(productCommand.getName(), productCommand.getDescription(), productCommand.getPrice(),
-                productCommand.getStock());
+                productCommand.getStock(), productCommand.getCategory());
     }
 }

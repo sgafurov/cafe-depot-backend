@@ -23,14 +23,18 @@ public class ProductEntity {
     @Column(name = "stock", nullable = false)
     private Integer stock;
 
+    @Column(name = "category", nullable = false)
+    private String category;
+
     public ProductEntity() {
     }
 
-    public ProductEntity(String name, String description, double price, int stock) {
+    public ProductEntity(String name, String description, double price, int stock, String category) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
+        this.category = category;
     }
 
     public Long getId() {
@@ -65,18 +69,26 @@ public class ProductEntity {
         this.price = price;
     }
 
-    public int getstock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setstock(int stock) {
+    public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override
     public String toString() {
         return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", stock="
-                + stock + "]";
+                + stock + ", category=" + category + "]";
     }
 
 }
