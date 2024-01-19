@@ -7,14 +7,16 @@ public class ProductModel {
     private Double price;
     private Integer stock;
     private String category;
+    private String imageNames;
 
-    public ProductModel(Long id, String productName, String description, Double price, Integer stock, String category) {
+    public ProductModel(Long id, String productName, String description, Double price, Integer stock, String category, String imageNames) {
         this.id = id;
         this.productName = productName;
         this.description = description;
         this.price = price;
         this.stock = stock;
         this.category = category;
+        this.imageNames = imageNames;
     }
 
     public Long getId() {
@@ -41,10 +43,16 @@ public class ProductModel {
         return category;
     }
 
+    public String getImageNames() {
+        return imageNames;
+    }
+
+   
+
     @Override
     public String toString() {
         return "ProductModel [id=" + id + ", productName=" + productName + ", description=" + description + ", price="
-                + price + ", stock=" + stock + ", category=" + category + "]";
+                + price + ", stock=" + stock + ", category=" + category + ", imageNames=" + imageNames + "]";
     }
 
     @Override
@@ -57,6 +65,7 @@ public class ProductModel {
         result = prime * result + ((price == null) ? 0 : price.hashCode());
         result = prime * result + ((stock == null) ? 0 : stock.hashCode());
         result = prime * result + ((category == null) ? 0 : category.hashCode());
+        result = prime * result + ((imageNames == null) ? 0 : imageNames.hashCode());
         return result;
     }
 
@@ -99,7 +108,13 @@ public class ProductModel {
                 return false;
         } else if (!category.equals(other.category))
             return false;
+        if (imageNames == null) {
+            if (other.imageNames != null)
+                return false;
+        } else if (!imageNames.equals(other.imageNames))
+            return false;
         return true;
     }
 
+    
 }

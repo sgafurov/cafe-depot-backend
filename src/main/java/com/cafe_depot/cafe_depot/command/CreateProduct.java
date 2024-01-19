@@ -13,17 +13,20 @@ public class CreateProduct {
     private Integer stock;
     @NotBlank
     private String category;
+    @NotBlank
+    private String imageNames;
 
     public CreateProduct() {
     }
 
     public CreateProduct(@NotBlank String name, @NotBlank String description, @NotBlank Double price,
-            @NotBlank Integer stock, @NotBlank String category) {
+            @NotBlank Integer stock, @NotBlank String category, @NotBlank String imageNames) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
         this.category = category;
+        this.imageNames = imageNames;
     }
 
     public String getName() {
@@ -66,10 +69,20 @@ public class CreateProduct {
         this.category = category;
     }
 
+
+    public String getImageNames() {
+        return imageNames;
+    }
+
+    public void setImageNames(String imageNames) {
+        this.imageNames = imageNames;
+    }
+    
+
     @Override
     public String toString() {
         return "CreateProduct [name=" + name + ", description=" + description + ", price=" + price + ", stock=" + stock
-                + ", category=" + category + "]";
+                + ", category=" + category + ", imageNames=" + imageNames + "]";
     }
 
     @Override
@@ -81,6 +94,7 @@ public class CreateProduct {
         result = prime * result + ((price == null) ? 0 : price.hashCode());
         result = prime * result + ((stock == null) ? 0 : stock.hashCode());
         result = prime * result + ((category == null) ? 0 : category.hashCode());
+        result = prime * result + ((imageNames == null) ? 0 : imageNames.hashCode());
         return result;
     }
 
@@ -117,6 +131,11 @@ public class CreateProduct {
             if (other.category != null)
                 return false;
         } else if (!category.equals(other.category))
+            return false;
+        if (imageNames == null) {
+            if (other.imageNames != null)
+                return false;
+        } else if (!imageNames.equals(other.imageNames))
             return false;
         return true;
     }
