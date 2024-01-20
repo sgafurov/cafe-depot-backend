@@ -26,6 +26,10 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<ProductEntity> getProductsByCategory(String category) {
+        return productRepository.findByCategory(category);
+    }
+
     public ProductModel addProduct(CreateProduct productCommand) {
         // create new product
         ProductEntity productEntity = productMapper.toEntity(productCommand);
@@ -35,8 +39,8 @@ public class ProductService {
     }
 
     // public ProductEntity updateProduct() {
-    //     // make sure the product exists first. then update the product (either name,
-    //     // desc, price, stock)
+    // // make sure the product exists first. then update the product (either name,
+    // // desc, price, stock)
     // }
 
 }

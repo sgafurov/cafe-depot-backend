@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -38,6 +39,11 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @GetMapping("/{category}")
+    public List<ProductEntity> getProductsByCategory(@PathVariable String category) {
+        return productService.getProductsByCategory(category);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<ProductModel> addProduct(@RequestBody @Valid CreateProduct productCommand) {
         logger.info("addProduct request recieved with product: " + productCommand);
@@ -45,20 +51,6 @@ public class ProductController {
         logger.info("successfully created new product: " + productModel + " with id: " + productModel.getId());
         return new ResponseEntity<>(productModel, HttpStatus.OK);
     }
-
-    // maybe try this
-    // public ResponseEntity<ProductModel> addProduct(@RequestBody CreateProduct
-    // productCommand) {
-    // logger.info("addProduct request received with product: {}", productCommand);
-
-    // try {
-    // ProductModel productModel = productService.addProduct(productCommand);
-    // return new ResponseEntity<>(productModel, HttpStatus.OK);
-    // } catch (Exception e) {
-    // logger.error("Error adding product: {}", e.getMessage());
-    // return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
 
     // @PutMapping("update/{id}")
     // public SomeEnityData putMethodName(@PathVariable String id, @RequestBody
