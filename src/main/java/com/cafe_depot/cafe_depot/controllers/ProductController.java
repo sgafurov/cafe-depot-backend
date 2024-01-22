@@ -12,6 +12,8 @@ import com.cafe_depot.cafe_depot.entities.ProductEntity;
 import com.cafe_depot.cafe_depot.models.ProductModel;
 import com.cafe_depot.cafe_depot.services.ProductService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,14 @@ public class ProductController {
         ProductModel productModel = productService.addProduct(productCommand);
         logger.info("successfully created new product: " + productModel + " with id: " + productModel.getId());
         return new ResponseEntity<>(productModel, HttpStatus.OK);
+    }
+
+    @Transactional
+    @PostMapping("/delete/{id}")
+    public boolean removeProduct(@PathVariable Long id) {
+        logger.info("removeProduct request recieved with productId: " + id);
+        return productService.removeProduct(id);
+
     }
 
     // @PutMapping("update/{id}")

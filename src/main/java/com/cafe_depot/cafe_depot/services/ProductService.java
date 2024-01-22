@@ -11,6 +11,8 @@ import com.cafe_depot.cafe_depot.mapper.ProductMapper;
 import com.cafe_depot.cafe_depot.models.ProductModel;
 import com.cafe_depot.cafe_depot.repositories.ProductRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
@@ -38,6 +40,14 @@ public class ProductService {
         return productModel;
     }
 
+    @Transactional
+    public boolean removeProduct(Long id) {
+        if (productRepository.findById(id).isPresent()) {
+            productRepository.removeProductById(id);
+            return true;
+        }
+        return false;
+    }
     // public ProductEntity updateProduct() {
     // // make sure the product exists first. then update the product (either name,
     // // desc, price, stock)
