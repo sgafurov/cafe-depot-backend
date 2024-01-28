@@ -11,14 +11,20 @@ public class UserEntity {
     @Column(name = "user_id", nullable = false)
     private Long id;
 
-    @Column(name = "username", nullable = false)
-    private String username;
+    // @Column(name = "username", nullable = false)
+    // private String username;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(name = "address", nullable = false)
     private String address;
@@ -26,16 +32,17 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(String username, String password, String email, String address) {
-        this.username = username;
+    public UserEntity(String firstName, String lastName, String email, String password, String address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         // this.password = hashPassword(password);
-        this.password = password;
         this.email = email;
+        this.password = password;
         this.address = address;
     }
 
     // private String hashPassword(String password) {
-    //     return new BCryptPasswordEncoder().encode(password);
+    // return new BCryptPasswordEncoder().encode(password);
     // }
 
     public Long getId() {
@@ -46,24 +53,20 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getLastName() {
+        return lastName;
     }
 
-    // public void setPassword(String password) {
-    //     this.password = hashPassword(password);
-    // }
-
-    public void setPassword(String password) {
-    this.password = (password);
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -72,6 +75,18 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    // public void setPassword(String password) {
+    // this.password = hashPassword(password);
+    // }
+
+    public void setPassword(String password) {
+        this.password = (password);
     }
 
     public String getAddress() {
@@ -84,12 +99,8 @@ public class UserEntity {
 
     @Override
     public String toString() {
-        return "User{" +
-                "user_id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "UserEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+                + ", password=" + password + ", address=" + address + "]";
     }
 
     public UserEntity orElseThrow(Object object) {

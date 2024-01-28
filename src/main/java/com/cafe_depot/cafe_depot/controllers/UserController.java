@@ -42,20 +42,28 @@ public class UserController {
         return new ResponseEntity<>(userModel, HttpStatus.OK);
     }
 
-    @PostMapping("/log-in")
-    public ResponseEntity<UserModel> logInUser(@RequestBody LogInUser userCommand) {
-        logger.info("logInUser request recieved with username: " + userCommand);
-        UserModel userModel = userService.logInUser(userCommand); // use service to validate
-        return new ResponseEntity<>(userModel, HttpStatus.OK);
-    }
+    // @PostMapping("/log-in")
+    // public ResponseEntity<UserModel> logInUser(@RequestBody LogInUser userCommand) {
+    //     logger.info("logInUser request recieved with username: " + userCommand);
+    //     UserModel userModel = userService.logInUser(userCommand); // use service to validate
+    //     return new ResponseEntity<>(userModel, HttpStatus.OK);
+    // }
 
-    @GetMapping("/get/{username}")
-    public ResponseEntity<UserModel> getUserByUsername(@PathVariable String username) {
-        logger.info("getUserByUsername request recieved with username: " + username);
-        return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
+    @PostMapping("/{email}")
+    public ResponseEntity<UserModel> getUserByEmail(@PathVariable String email) {
+        logger.info("getUserByEmail request recieved with email: " + email);
+        return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.OK);
         // .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
         // .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    // @GetMapping("/get/{username}")
+    // public ResponseEntity<UserModel> getUserByUsername(@PathVariable String username) {
+    //     logger.info("getUserByUsername request recieved with username: " + username);
+    //     return new ResponseEntity<>(userService.getUserByUsername(username), HttpStatus.OK);
+    //     // .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+    //     // .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    // }
 
     // Endpoint to create a new user
     // @PostMapping
@@ -66,9 +74,9 @@ public class UserController {
     // }
 
     // Endpoint to delete a user by ID
-    @DeleteMapping("/delete/{username}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String username) {
-        userService.deleteByUsername(username);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+    // @DeleteMapping("/delete/{username}")
+    // public ResponseEntity<Void> deleteUser(@PathVariable String username) {
+    //     userService.deleteByUsername(username);
+    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    // }
 }

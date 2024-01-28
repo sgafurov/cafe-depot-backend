@@ -35,8 +35,8 @@ public class UserService {
 
     public UserModel createUser(CreateUser userCommand) {
         // useRepo talks with the db to check if the username is already taken
-        if (userRepository.findByUsername(userCommand.getUsername()).isPresent()) {
-            throw new IllegalArgumentException("Username already exists. Choose another username.");
+        if (userRepository.findByEmail(userCommand.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("User with this email already exists.");
         }
         UserEntity userEntity = userMapper.toEntity(userCommand);
         UserEntity newUser = userRepository.save(userEntity); // saves to the db
@@ -44,44 +44,61 @@ public class UserService {
         return userModel;
     }
 
-    public UserModel logInUser(LogInUser userCommand) {
-        logger.info("logInUser service called");
-        // Optional<User> userOption =
-        // userRepository.findByUsernameAndPassword(userCommand.getUsername(),
-        // hashedPassword);
-        Optional<UserEntity> userOption = userRepository.findByUsername(userCommand.getUsername());
+    // public UserModel logInUser(LogInUser userCommand) {
+    // logger.info("logInUser service called");
+    // // Optional<User> userOption =
+    // // userRepository.findByUsernameAndPassword(userCommand.getUsername(),
+    // // hashedPassword);
+    // Optional<UserEntity> userOption =
+    // userRepository.findByUsername(userCommand.getUsername());
 
-        if (userOption.isPresent()) {
-            UserEntity userEntity = userOption.get();
-            if (userMapper.verifyPassword(userCommand.getPassword(), userEntity.getPassword())) {
-                // creating token after veryifing password
-                UserSessionEntity userSessionEntity = new UserSessionEntity(UUID.randomUUID().toString(), userEntity);
-                // save token to its session db
-                userSessionEntity = userSessionRepository.save(userSessionEntity);
-                // make a user model dto with its session id
-                UserModel userModel = userMapper.toModel(userEntity, userSessionEntity); // creates a new model to return to client
-                return userModel;
-            }
-            // TODO update DB with login attempts
-        }
-        throw new IllegalArgumentException("Invalid login.");
-    }
+    // if (userOption.isPresent()) {
+    // UserEntity userEntity = userOption.get();
+    // if (userMapper.verifyPassword(userCommand.getPassword(),
+    // userEntity.getPassword())) {
+    // // creating token after veryifing password
+    // UserSessionEntity userSessionEntity = new
+    // UserSessionEntity(UUID.randomUUID().toString(), userEntity);
+    // // save token to its session db
+    // userSessionEntity = userSessionRepository.save(userSessionEntity);
+    // // make a user model dto with its session id
+    // UserModel userModel = userMapper.toModel(userEntity, userSessionEntity); //
+    // creates a new model to return to client
+    // return userModel;
+    // }
+    // // TODO update DB with login attempts
+    // }
+    // throw new IllegalArgumentException("Invalid login.");
+    // }
 
-    public UserModel getUserByUsername(String username) {
-        Optional<UserEntity> userEntityOptional = userRepository.findByUsername(username);
+    public UserModel getUserByEmail(String email) {
+        Optional<UserEntity> userEntityOptional = userRepository.findByEmail(email);
 
         if (userEntityOptional.isPresent()) {
             UserEntity userEntity = userEntityOptional.get();
-            return userMapper.toModel(userEntity);
+            return userMapper.toModel(userEntity); // dont return entity directly
         } else {
             throw new IllegalArgumentException("User not found");
         }
-        // return userRepository.findByUsername(username)
-        // .map(user -> userMapper.toModel(user))
-        // .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-        // Dont return entity directly...return userRepository.findByUsername(username)
     }
+
+    // public UserModel getUserByUsername(String username) {
+    // Optional<UserEntity> userEntityOptional =
+    // userRepository.findByUsername(username);
+
+    // if (userEntityOptional.isPresent()) {
+    // UserEntity userEntity = userEntityOptional.get();
+    // return userMapper.toModel(userEntity);
+    // } else {
+    // throw new IllegalArgumentException("User not found");
+    // }
+    // // return userRepository.findByUsername(username)
+    // // .map(user -> userMapper.toModel(user))
+    // // .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+    // // Dont return entity directly...return
+    // userRepository.findByUsername(username)
+    // }
 
     // public User updateUser(String username, User updatedUser) {
     // return userRepository.findByUsername(username)
@@ -95,7 +112,7 @@ public class UserService {
     // .orElse(null);
     // }
 
-    public void deleteByUsername(String username) {
-        userRepository.deleteByUsername(username);
-    }
+    // public void deleteByUsername(String username) {
+    //     userRepository.deleteByUsername(username);
+    // }
 }

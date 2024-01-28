@@ -26,19 +26,21 @@ public class UserMapper {
     }
 
     public UserModel toModel(UserEntity user) {
-        return new UserModel(user.getId(), user.getUsername(), user.getEmail(), user.getAddress(), null);
+        return new UserModel(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAddress(),
+                null);
     }
 
     public UserModel toModel(UserEntity user, UserSessionEntity userSessionEntity) {
-        return new UserModel(user.getId(), user.getUsername(), user.getEmail(), user.getAddress(), userSessionEntity.getSessionId());
+        return new UserModel(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAddress(),
+                userSessionEntity.getSessionId());
     }
 
     public UserEntity toEntity(CreateUser userCommand) {
-        return new UserEntity(userCommand.getUsername(), hashPassword(userCommand.getPassword()), userCommand.getEmail(),
-                userCommand.getAddress());
+        return new UserEntity(userCommand.getFirstName(), userCommand.getLastName(), userCommand.getEmail(),
+                hashPassword(userCommand.getPassword()), userCommand.getAddress());
     }
 
-    public UserEntity toEntity(LogInUser userCommand) {
-        return new UserEntity(userCommand.getUsername(), userCommand.getPassword(), null, null);
-    }
+    // public UserEntity toEntity(LogInUser userCommand) {
+    //     return new UserEntity(userCommand.getUsername(), userCommand.getPassword(), null, null);
+    // }
 }

@@ -4,33 +4,39 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 public class CreateUser {
-    @NotBlank
-    private String username;
+    // @NotBlank
+    // private String username;
 
     @NotBlank
-    private String password;
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
 
     @NotBlank
     @Email
     private String email;
 
     @NotBlank
+    private String password;
+
+    @NotBlank
     private String address;
 
-    public String getUsername() {
-        return username;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -41,6 +47,14 @@ public class CreateUser {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -49,30 +63,32 @@ public class CreateUser {
         this.address = address;
     }
 
-    public CreateUser(){
+    public CreateUser() {
     }
 
-    public CreateUser(@NotBlank String username, @NotBlank String password, @NotBlank @Email String email,
-            @NotBlank String address) {
-        this.username = username;
-        this.password = password;
+    public CreateUser(@NotBlank String firstName, @NotBlank String lastName, @NotBlank @Email String email,
+            @NotBlank String password, @NotBlank String address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
+        this.password = password;
         this.address = address;
     }
 
     @Override
     public String toString() {
-        return "CreateUser [username=" + username + ", password=" + password + ", email=" + email + ", address="
-                + address + "]";
+        return "CreateUser [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password="
+                + password + ", address=" + address + "]";
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((username == null) ? 0 : username.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
+        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + ((password == null) ? 0 : password.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         return result;
     }
@@ -86,20 +102,25 @@ public class CreateUser {
         if (getClass() != obj.getClass())
             return false;
         CreateUser other = (CreateUser) obj;
-        if (username == null) {
-            if (other.username != null)
+        if (firstName == null) {
+            if (other.firstName != null)
                 return false;
-        } else if (!username.equals(other.username))
+        } else if (!firstName.equals(other.firstName))
             return false;
-        if (password == null) {
-            if (other.password != null)
+        if (lastName == null) {
+            if (other.lastName != null)
                 return false;
-        } else if (!password.equals(other.password))
+        } else if (!lastName.equals(other.lastName))
             return false;
         if (email == null) {
             if (other.email != null)
                 return false;
         } else if (!email.equals(other.email))
+            return false;
+        if (password == null) {
+            if (other.password != null)
+                return false;
+        } else if (!password.equals(other.password))
             return false;
         if (address == null) {
             if (other.address != null)
@@ -109,5 +130,4 @@ public class CreateUser {
         return true;
     }
 
-    
 }

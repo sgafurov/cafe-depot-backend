@@ -23,12 +23,10 @@ public class ProductEntity {
     @Column(name = "stock", nullable = false)
     private Integer stock;
 
-    @Column(name = "category")
-    // , nullable = false)
+    @Column(name = "category", nullable = false)
     private String category;
 
-    @Column(name = "image_names")
-    // , nullable = false)
+    @Column(name = "image_names", nullable = false)
     private String imageNames;
 
     public ProductEntity() {
@@ -91,7 +89,6 @@ public class ProductEntity {
         this.category = category;
     }
 
-    
     public String getImageNames() {
         return imageNames;
     }
