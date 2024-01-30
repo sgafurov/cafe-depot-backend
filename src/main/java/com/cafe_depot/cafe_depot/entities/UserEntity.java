@@ -32,6 +32,10 @@ public class UserEntity {
     public UserEntity() {
     }
 
+    public UserEntity(Long id) {
+        this.id = id;
+    }
+
     public UserEntity(String firstName, String lastName, String email, String password, String address) {
         this.firstName = firstName;
         this.lastName = lastName;

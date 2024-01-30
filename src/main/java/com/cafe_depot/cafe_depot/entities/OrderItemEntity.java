@@ -32,6 +32,12 @@ public class OrderItemEntity {
     public OrderItemEntity() {
     }
 
+    public OrderItemEntity(ProductEntity product, int quantity, double subtotal) {
+        this.product = product;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+    }
+
     public OrderItemEntity(OrderEntity order, ProductEntity product, int quantity, double subtotal) {
         this.order = order;
         this.product = product;
@@ -47,14 +53,6 @@ public class OrderItemEntity {
         this.id = id;
     }
 
-    public double getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -63,11 +61,38 @@ public class OrderItemEntity {
         this.quantity = quantity;
     }
 
+    public void setSubtotal(Double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public Double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public OrderEntity getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderEntity order) {
+        this.order = order;
+    }
+
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
         return "OrderItem [id=" + id + ", subtotal=" + subtotal + ", quantity=" + quantity + ", order=" + order
                 + ", product=" + product + "]";
     }
 
-    
 }
