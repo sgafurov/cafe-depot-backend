@@ -1,6 +1,7 @@
 package com.cafe_depot.cafe_depot.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,21 @@ public class ProductService {
 
     public List<ProductEntity> getProductsByCategory(String category) {
         return productRepository.findByCategory(category);
+    }
+
+    public List<ProductEntity> getProductsByKeyword(String keyword) {
+        List<ProductEntity> allProducts = productRepository.findAll();
+        List<ProductEntity> filteredProducts = allProducts.stream()
+                .filter(product -> product.getDescription().toLowerCase().contains(keyword.toLowerCase()) ||
+                        product.getName().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+
+        return filteredProducts;
+        // productEntities.removeIf(product ->
+        // !product.getDescription().toLowerCase().contains(keyword.toLowerCase()));
+        // productEntities.removeIf(product ->
+        // !product.getName().toLowerCase().contains(keyword.toLowerCase()));
+        // return productEntities;
     }
 
     public ProductModel addProduct(CreateProduct productCommand) {

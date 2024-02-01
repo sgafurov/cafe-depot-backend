@@ -44,7 +44,7 @@ public class OrderService {
 
         List<OrderItemEntity> orderItems = new ArrayList<>();
 
-        // TODO fetch all the products in the list
+        // fetch all the products in the list of order items
         Map<Long, CartItemModel> cartItemMap = orderCommand.getOrderItems().stream()
                 .collect(Collectors.toMap(CartItemModel::getId, Function.identity()));
 

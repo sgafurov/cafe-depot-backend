@@ -19,6 +19,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,9 +42,15 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/{category}")
+    @GetMapping("/category/{category}")
     public List<ProductEntity> getProductsByCategory(@PathVariable String category) {
         return productService.getProductsByCategory(category);
+    }
+
+    @GetMapping("/keyword/{keyword}")
+    public List<ProductEntity> getProductsByKeyword(@PathVariable String keyword) {
+        logger.info("getProductsByKeyword request recieved with input: " + keyword);
+        return productService.getProductsByKeyword(keyword);
     }
 
     @PostMapping("/add")
@@ -55,11 +62,10 @@ public class ProductController {
     }
 
     @Transactional
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public boolean removeProduct(@PathVariable Long id) {
         logger.info("removeProduct request recieved with productId: " + id);
         return productService.removeProduct(id);
-
     }
 
     // @PutMapping("update/{id}")

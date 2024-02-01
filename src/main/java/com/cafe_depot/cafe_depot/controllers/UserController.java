@@ -49,7 +49,7 @@ public class UserController {
     //     return new ResponseEntity<>(userModel, HttpStatus.OK);
     // }
 
-    @PostMapping("/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<UserModel> getUserByEmail(@PathVariable String email) {
         logger.info("getUserByEmail request recieved with email: " + email);
         return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.OK);
