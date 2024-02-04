@@ -38,6 +38,13 @@ public class OrderService {
         this.orderMapper = orderMapper;
     }
 
+    public List<OrderEntity> getOrdersByUserId(Long userId) {
+        // return orderRepository.findByUserId(userId);
+        List<OrderEntity> orders = orderRepository.findByUserId(userId);
+        // orders.forEach(order -> order.setOrderItems(orderItemRepository.findByOrderId(order.getId())));
+        return orders;
+    }
+
     @Transactional
     public OrderModel createOrder(CreateOrder orderCommand) throws Exception {
         Double total = 0.0;

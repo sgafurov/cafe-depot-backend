@@ -1,11 +1,13 @@
 package com.cafe_depot.cafe_depot.entities;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
+@Table(name = "orders")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,8 +20,10 @@ public class OrderEntity {
     private UserEntity user;
 
     // an Order entity can have multiple OrderItem entities associated with it
-    @OneToMany
-    // (mappedBy = "order_id")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
+    @JsonManagedReference
+    // (fetch = FetchType.EAGER)
+    // (mappedBy = "order")
     private List<OrderItemEntity> orderItems;
 
     @Column(name = "total", nullable = false)

@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe_depot.cafe_depot.command.CreateOrder;
-import com.cafe_depot.cafe_depot.command.CreateProduct;
 import com.cafe_depot.cafe_depot.entities.OrderEntity;
 import com.cafe_depot.cafe_depot.models.OrderModel;
-import com.cafe_depot.cafe_depot.models.ProductModel;
 import com.cafe_depot.cafe_depot.services.OrderService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -49,7 +48,13 @@ public class OrderController {
     // return new ResponseEntity<>(order, HttpStatus.OK);
     // }
 
-    @PostMapping
+    @GetMapping("/{userId}")
+    public List<OrderEntity> getOrdersByUserId(@PathVariable Long userId) {
+        logger.info("getOrdersByUserId request recieved with userId: " + userId);
+        return orderService.getOrdersByUserId(userId);
+    }
+
+    @PostMapping // creates new order
     public ResponseEntity<OrderModel> createOrder(@RequestBody @Valid CreateOrder orderCommand) throws Exception {
         logger.info("createOrder request recieved with order: " + orderCommand);
         OrderModel orderModel = orderService.createOrder(orderCommand);

@@ -5,10 +5,10 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user_sessions")
 public class UserSessionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

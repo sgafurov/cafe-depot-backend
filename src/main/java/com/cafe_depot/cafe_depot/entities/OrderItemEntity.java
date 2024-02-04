@@ -1,10 +1,11 @@
 package com.cafe_depot.cafe_depot.entities;
 
-import jakarta.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "order_item")
+@Table(name = "order_items")
 public class OrderItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,7 @@ public class OrderItemEntity {
     // the primary key (order_id) of the Order table.
     @ManyToOne
     @JoinColumn(name = "order_id") // Defines name of the foreign key column
+    @JsonBackReference
     private OrderEntity order;
 
     // FK product_id
