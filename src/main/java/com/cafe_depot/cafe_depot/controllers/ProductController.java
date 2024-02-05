@@ -37,6 +37,12 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductModel> getProductById(@PathVariable Long productId) {
+        ProductModel productModel = productService.getProductById(productId);
+        return new ResponseEntity<>(productModel, HttpStatus.OK);
+    }
+
     @GetMapping("/all")
     public List<ProductEntity> getAllProducts() {
         return productService.getAllProducts();

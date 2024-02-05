@@ -2,16 +2,17 @@ package com.cafe_depot.cafe_depot.models;
 
 public class ProductModel {
     private Long id;
-    private String productName;
+    private String name;
     private String description;
     private Double price;
     private Integer stock;
     private String category;
     private String imageNames;
 
-    public ProductModel(Long id, String productName, String description, Double price, Integer stock, String category, String imageNames) {
+    public ProductModel(Long id, String name, String description, Double price, Integer stock, String category,
+            String imageNames) {
         this.id = id;
-        this.productName = productName;
+        this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
@@ -23,8 +24,8 @@ public class ProductModel {
         return id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {
@@ -47,11 +48,9 @@ public class ProductModel {
         return imageNames;
     }
 
-   
-
     @Override
     public String toString() {
-        return "ProductModel [id=" + id + ", productName=" + productName + ", description=" + description + ", price="
+        return "ProductModel [id=" + id + ", name=" + name + ", description=" + description + ", price="
                 + price + ", stock=" + stock + ", category=" + category + ", imageNames=" + imageNames + "]";
     }
 
@@ -60,7 +59,7 @@ public class ProductModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((productName == null) ? 0 : productName.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((price == null) ? 0 : price.hashCode());
         result = prime * result + ((stock == null) ? 0 : stock.hashCode());
@@ -83,10 +82,10 @@ public class ProductModel {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (productName == null) {
-            if (other.productName != null)
+        if (name == null) {
+            if (other.name != null)
                 return false;
-        } else if (!productName.equals(other.productName))
+        } else if (!name.equals(other.name))
             return false;
         if (description == null) {
             if (other.description != null)
@@ -116,5 +115,4 @@ public class ProductModel {
         return true;
     }
 
-    
 }

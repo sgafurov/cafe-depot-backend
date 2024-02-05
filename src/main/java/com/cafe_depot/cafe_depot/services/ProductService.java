@@ -1,6 +1,7 @@
 package com.cafe_depot.cafe_depot.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,14 @@ public class ProductService {
     public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
+    }
+
+    public ProductModel getProductById(Long productId) {
+        Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
+        ProductEntity productEntity = optionalProductEntity
+                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + productId));
+        ProductModel productModel = productMapper.toModel(productEntity);
+        return productModel;
     }
 
     public List<ProductEntity> getAllProducts() {
