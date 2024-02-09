@@ -17,7 +17,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOrigins(Arrays.asList("http://localhost:3000")); // Replace with your frontend
+                    config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://cafe-depot.netlify.app")); // Replace with your frontend
                     config.setAllowedMethods(Arrays.asList("*")); // You can specify specific methods if needed
                     config.setAllowedHeaders(Arrays.asList("*")); // You can specify specific headers if needed
                     return config;
